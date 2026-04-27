@@ -1,0 +1,9 @@
+Topic: Newton's Laws of Motion
+
+Newton's Second Law: F = ma
+If a 5kg object accelerates at 3 m/s, force = 15N.
+
+Q1. A 10kg box is pushed with 20N force. Find acceleration.
+Ans: 2 m/s
+
+Q2. Seatbelts work because of Newton's Third Law.

@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --color-pw-orange: #FF6600;
+  --color-pw-dark: #0A1929;
+  --color-pw-orange-hover: #E65C00;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white font-sans m-0 p-0;
+  }
+}
+
+/* Custom Animations */
+@keyframes pw-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.animate-pw-pulse {
+  animation: pw-pulse 2s infinite;
+}
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 283;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-dash {
+  animation: dash 1.5s ease-out forwards;
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+/* Delay utilities for staggered animations */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+
+/* Custom Scrollbar for Textarea */
+textarea::-webkit-scrollbar {
+  width: 8px;
+}
+textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+textarea::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 4px;
+}
+textarea::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
