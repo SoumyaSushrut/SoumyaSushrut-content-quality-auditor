@@ -4,5 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/content-quality-auditor1/',
   plugins: [react(), tailwindcss()],
 })
