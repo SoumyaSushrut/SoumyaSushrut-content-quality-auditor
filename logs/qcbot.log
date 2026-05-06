@@ -137,3 +137,26 @@ java.lang.NullPointerException: Cannot throw exception because "lastException" i
 	at sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:609) [jdk.httpserver:?]
 	at sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:574) [jdk.httpserver:?]
 	at java.lang.Thread.run(Thread.java:1474) [?:?]
+2026-05-06 19:44:04.942 [com.pw.QCBot.main()] INFO  com.pw.QCBot - QC Bot API Server started on port 8080
+2026-05-06 19:44:04.946 [com.pw.QCBot.main()] INFO  com.pw.QCBot - Waiting for frontend requests...
+2026-05-06 19:44:20.470 [HTTP-Dispatcher] INFO  com.pw.QCBot - --- Received new audit request ---
+2026-05-06 19:44:20.471 [HTTP-Dispatcher] INFO  com.pw.QCBot - Notes loaded! Sending to Gemini...
+2026-05-06 19:44:21.279 [HTTP-Dispatcher] WARN  com.pw.QCBot - Gemini is busy (Error 429). Retrying in 2 seconds... (Attempt 1)
+2026-05-06 19:44:23.491 [HTTP-Dispatcher] WARN  com.pw.QCBot - Gemini is busy (Error 429). Retrying in 2 seconds... (Attempt 2)
+2026-05-06 19:44:25.747 [HTTP-Dispatcher] WARN  com.pw.QCBot - Gemini is busy (Error 429). Retrying in 2 seconds... (Attempt 3)
+2026-05-06 19:44:27.749 [HTTP-Dispatcher] ERROR com.pw.QCBot - Error processing audit request
+java.lang.Exception: Gemini is overloaded: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash-lite
+Please retry in 34.391896767s.
+	at com.pw.QCBot.callGemini(QCBot.java:166) ~[classes/:?]
+	at com.pw.QCBot$AuditHandler.handle(QCBot.java:94) [classes/:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98) [jdk.httpserver:?]
+	at sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76) [jdk.httpserver:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:915) [jdk.httpserver:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:891) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:204) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:609) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:574) [jdk.httpserver:?]
+	at java.lang.Thread.run(Thread.java:1474) [?:?]
