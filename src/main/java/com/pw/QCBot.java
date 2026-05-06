@@ -138,35 +138,54 @@ public class QCBot {
                 + "}";
 
         String url = "https://generativelanguage.googleapis.com/v1beta/models/"
-                + "gemini-1.5-flash:generateContent?key=" + API_KEY;
+                + "gemini-2.5-flash-lite:generateContent?key=" + API_KEY;
 
-        Request request = new Request.Builder()
-                .url(url)
-                .post(RequestBody.create(requestBody,
-                        MediaType.parse("application/json")))
-                .addHeader("content-type", "application/json")
-                .build();
+        int maxRetries = 3;
+        int retryCount = 0;
+        Exception lastException = null;
 
-        Response response = client.newCall(request).execute();
-        String responseBody = response.body().string();
+        while (retryCount < maxRetries) {
+            try {
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(RequestBody.create(requestBody,
+                                MediaType.parse("application/json")))
+                        .addHeader("content-type", "application/json")
+                        .build();
 
-        // Print raw response so we can see exactly what Gemini sends back
-        logger.debug("RAW RESPONSE: " + responseBody);
+                Response response = client.newCall(request).execute();
+                String responseBody = response.body().string();
 
-        JsonObject json = JsonParser.parseString(responseBody).getAsJsonObject();
+                JsonObject json = JsonParser.parseString(responseBody).getAsJsonObject();
 
-        // Check if error exists
-        if (json.has("error")) {
-            throw new Exception("Gemini API Error: " + json.get("error").toString());
+                if (json.has("error")) {
+                    JsonObject error = json.getAsJsonObject("error");
+                    int code = error.has("code") ? error.get("code").getAsInt() : 500;
+                    if (code == 503 || code == 429) {
+                        logger.warn("Gemini is busy (Error " + code + "). Retrying in 2 seconds... (Attempt " + (retryCount + 1) + ")");
+                        lastException = new Exception("Gemini is overloaded: " + error.get("message").getAsString());
+                        Thread.sleep(2000);
+                        retryCount++;
+                        continue;
+                    }
+                    throw new Exception("Gemini API Error: " + error.get("message").getAsString());
+                }
+
+                return json.getAsJsonArray("candidates")
+                        .get(0).getAsJsonObject()
+                        .getAsJsonObject("content")
+                        .getAsJsonArray("parts")
+                        .get(0).getAsJsonObject()
+                        .get("text")
+                        .getAsString();
+
+            } catch (Exception e) {
+                lastException = e;
+                retryCount++;
+                if (retryCount < maxRetries) Thread.sleep(2000);
+            }
         }
-
-        return json.getAsJsonArray("candidates")
-                .get(0).getAsJsonObject()
-                .getAsJsonObject("content")
-                .getAsJsonArray("parts")
-                .get(0).getAsJsonObject()
-                .get("text")
-                .getAsString();
+        throw lastException;
     }
 
     static void listModels() throws Exception {
