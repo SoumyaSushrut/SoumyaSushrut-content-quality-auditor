@@ -97,7 +97,7 @@ function App() {
 
     } catch (error) {
       console.error("Failed to audit notes:", error);
-      alert("The server is currently waking up (Free Tier). Please wait 30 seconds and try again! If the issue persists, check if the backend is live on Render.");
+      alert("We're experiencing heavy traffic or the server is starting up. Please wait 10 seconds and try again!");
     } finally {
       setIsAuditing(false);
     }

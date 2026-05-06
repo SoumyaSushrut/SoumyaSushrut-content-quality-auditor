@@ -26,3 +26,5 @@ java.lang.Exception: Gemini API Error: {"code":503,"message":"This model is curr
 	at sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:609) [jdk.httpserver:?]
 	at sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:574) [jdk.httpserver:?]
 	at java.lang.Thread.run(Thread.java:1474) [?:?]
+2026-05-06 18:43:16.634 [com.pw.QCBot.main()] INFO  com.pw.QCBot - QC Bot API Server started on port 8080
+2026-05-06 18:43:16.649 [com.pw.QCBot.main()] INFO  com.pw.QCBot - Waiting for frontend requests...
