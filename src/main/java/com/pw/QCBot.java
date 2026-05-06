@@ -138,7 +138,7 @@ public class QCBot {
                 + "}";
 
         String url = "https://generativelanguage.googleapis.com/v1beta/models/"
-                + "gemini-2.5-flash:generateContent?key=" + API_KEY.trim();
+                + "gemini-flash-latest:generateContent?key=" + API_KEY.trim();
 
         int maxRetries = 3;
         int retryCount = 0;
