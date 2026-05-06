@@ -7,8 +7,12 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class QCBot {
+
+    private static final Logger logger = LogManager.getLogger(QCBot.class);
 
     // Your Gemini API key - paste it here between the quotes
     static String API_KEY = "AIzaSyCEzJsbSPvpK5GiXlZemhH3L5XM8yoL7YU";
@@ -18,8 +22,8 @@ public class QCBot {
         server.createContext("/api/audit", new AuditHandler());
         server.setExecutor(null);
         server.start();
-        System.out.println("QC Bot API Server started on http://localhost:8080");
-        System.out.println("Waiting for frontend requests...");
+        logger.info("QC Bot API Server started on http://localhost:8080");
+        logger.info("Waiting for frontend requests...");
     }
 
     static class AuditHandler implements HttpHandler {
@@ -32,6 +36,7 @@ public class QCBot {
             
             if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
                 exchange.sendResponseHeaders(204, -1);
+                exchange.getResponseBody().close();
                 return;
             }
 
@@ -41,8 +46,8 @@ public class QCBot {
                     JsonObject requestBody = JsonParser.parseReader(isr).getAsJsonObject();
                     String notes = requestBody.has("notes") ? requestBody.get("notes").getAsString() : "";
 
-                    System.out.println("\n--- Received new audit request ---");
-                    System.out.println("Notes loaded! Sending to Gemini...");
+                    logger.info("--- Received new audit request ---");
+                    logger.info("Notes loaded! Sending to Gemini...");
 
                     String prompt = "You are a strict content auditor for PW (Physics Wallah)." +
                         " A teacher has submitted these notes. Audit everything -" +
@@ -57,7 +62,7 @@ public class QCBot {
                         " Here are the notes to audit: " + notes;
 
                     String response = callGemini(prompt);
-                    System.out.println("Gemini replied!");
+                    logger.info("Gemini replied!");
 
                     // Clean the response
                     response = response.trim();
@@ -72,10 +77,10 @@ public class QCBot {
                     os.write(responseBytes);
                     os.close();
                     
-                    System.out.println("Audit response sent back to frontend.");
+                    logger.info("Audit response sent back to frontend.");
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.error("Error processing audit request", e);
                     String errorMsg = "{\"error\": \"Internal Server Error\"}";
                     exchange.sendResponseHeaders(500, errorMsg.length());
                     OutputStream os = exchange.getResponseBody();
@@ -115,7 +120,7 @@ public class QCBot {
     String responseBody = response.body().string();
 
     // Print raw response so we can see exactly what Gemini sends back
-    System.out.println("RAW RESPONSE: " + responseBody);
+    logger.debug("RAW RESPONSE: " + responseBody);
 
     JsonObject json = JsonParser.parseString(responseBody).getAsJsonObject();
 
