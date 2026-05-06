@@ -160,3 +160,5 @@ Please retry in 34.391896767s.
 	at sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:609) [jdk.httpserver:?]
 	at sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:574) [jdk.httpserver:?]
 	at java.lang.Thread.run(Thread.java:1474) [?:?]
+2026-05-06 19:45:09.071 [com.pw.QCBot.main()] INFO  com.pw.QCBot - QC Bot API Server started on port 8080
+2026-05-06 19:45:09.073 [com.pw.QCBot.main()] INFO  com.pw.QCBot - Waiting for frontend requests...
