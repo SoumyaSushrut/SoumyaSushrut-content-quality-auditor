@@ -97,7 +97,7 @@ function App() {
 
     } catch (error) {
       console.error("Failed to audit notes:", error);
-      alert("Failed to connect to the backend server. Make sure QCBot.java is running!");
+      alert("The server is currently waking up (Free Tier). Please wait 30 seconds and try again! If the issue persists, check if the backend is live on Render.");
     } finally {
       setIsAuditing(false);
     }

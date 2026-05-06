@@ -8,3 +8,21 @@
 2026-05-06 16:03:12.464 [HTTP-Dispatcher] INFO  com.pw.QCBot - Notes loaded! Sending to Gemini...
 2026-05-06 16:03:14.124 [HTTP-Dispatcher] INFO  com.pw.QCBot - Gemini replied!
 2026-05-06 16:03:14.125 [HTTP-Dispatcher] INFO  com.pw.QCBot - Audit response sent back to frontend.
+2026-05-06 17:47:02.752 [com.pw.QCBot.main()] INFO  com.pw.QCBot - QC Bot API Server started on port 8080
+2026-05-06 17:47:02.757 [com.pw.QCBot.main()] INFO  com.pw.QCBot - Waiting for frontend requests...
+2026-05-06 17:47:18.197 [HTTP-Dispatcher] INFO  com.pw.QCBot - --- Received new audit request ---
+2026-05-06 17:47:18.199 [HTTP-Dispatcher] INFO  com.pw.QCBot - Notes loaded! Sending to Gemini...
+2026-05-06 17:47:22.784 [HTTP-Dispatcher] ERROR com.pw.QCBot - Error processing audit request
+java.lang.Exception: Gemini API Error: {"code":503,"message":"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.","status":"UNAVAILABLE"}
+	at com.pw.QCBot.callGemini(QCBot.java:152) ~[classes/:?]
+	at com.pw.QCBot$AuditHandler.handle(QCBot.java:89) [classes/:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98) [jdk.httpserver:?]
+	at sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76) [jdk.httpserver:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:915) [jdk.httpserver:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:891) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:204) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:609) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:574) [jdk.httpserver:?]
+	at java.lang.Thread.run(Thread.java:1474) [?:?]
