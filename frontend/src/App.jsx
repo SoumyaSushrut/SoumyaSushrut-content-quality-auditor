@@ -81,7 +81,8 @@ function App() {
         }
       }
 
-      const response = await fetch('http://localhost:8080/api/audit', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+      const response = await fetch(`${API_URL}/api/audit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ notes: contentToAudit })

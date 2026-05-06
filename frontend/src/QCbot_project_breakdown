@@ -1,0 +1,76 @@
+# Project Breakdown: Physics Wallah Content Quality Auditor
+
+This document provides a detailed explanation of your first major AI-assisted project. It covers the **Full-Stack** architecture, the code logic, and how the different parts work together.
+
+---
+
+## 📂 Project Structure Overview
+
+```text
+Java_trial_product/
+├── pom.xml                # Maven configuration (The project "Brain")
+├── src/main/java/com/pw/  # Java Source Code
+│   └── QCBot.java         # The Backend Server (The "Engine")
+├── logs/                  # Application logs
+│   └── qcbot.log          # History of server actions
+└── frontend/              # React Frontend (The "Face")
+    ├── src/
+    │   ├── App.jsx        # Main UI logic
+    │   ├── components/    # Reusable UI pieces
+    │   └── main.jsx       # Entry point for React
+    └── package.json       # Frontend dependencies
+```
+
+---
+
+## 1. The Backend (Java + Maven)
+
+### 📄 `pom.xml`
+**What it does:** It tells Maven how to build your project and what libraries to download.
+- **Dependencies**: 
+    - `okhttp`: For network calls (to Gemini).
+    - `gson`: For handling JSON data (the language of APIs).
+    - `log4j`: For printing professional messages in the terminal/logs.
+- **Plugins**: The `exec-maven-plugin` allows you to run the app with one command: `mvn exec:java`.
+
+### 📄 `QCBot.java`
+**What it does:** This is your server. It stays awake, listens for requests, and talks to the AI.
+- **`HttpServer`**: A lightweight server that listens on port `8080`.
+- **`AuditHandler`**: When the frontend sends a POST request to `/api/audit`, this handler starts. It reads the text, creates a "Prompt" for the AI, and calls Gemini.
+- **Shutdown Hook**: A safety feature I added. When you stop the program, it tells the server to "close the door" properly so port 8080 isn't locked next time.
+- **CORS Support**: It adds special headers (`Access-Control-Allow-Origin`) so your browser doesn't block the connection from the frontend.
+
+---
+
+## 2. The Frontend (React + Vite)
+
+### 📄 `App.jsx`
+**What it does:** The main control center of your UI.
+- **PDF Parsing**: Uses `pdfjs-dist` to read text directly from PDF files inside your browser.
+- **State Management**: Uses `useState` to remember what the user typed, whether the AI is currently "thinking," and what the result was.
+- **`handleAudit`**: The most important function. It collects the text, sends it to `localhost:8080`, and waits for the JSON response.
+
+### 📄 `ReportDashboard.jsx`
+**What it does:** This makes the results look premium.
+- **Progress Bars**: Calculates the "Circular Progress" using SVG math (`circumference` and `strokeDashoffset`).
+- **Dynamic Styling**: Changes colors (Red/Yellow/Green) automatically based on the score returned by the AI.
+
+---
+
+## 🔄 How the Data Flows (The "Internal Working")
+
+1. **User Input**: A teacher drags a PDF into the React app.
+2. **Text Extraction**: The browser (React) reads the text inside that PDF.
+3. **API Call**: React sends that text to your Java Backend (`http://localhost:8080/api/audit`).
+4. **Instruction Layer**: `QCBot.java` takes that text and wraps it in a **System Prompt**. It tells Gemini: *"You are a strict PW auditor. Check this for JEE/NEET standards. Return ONLY JSON."*
+5. **AI Logic**: Google Gemini receives the text, performs the audit, and sends back a JSON object.
+6. **Backend Response**: `QCBot` receives the AI's reply and passes it back to the React app.
+7. **UI Render**: React takes that JSON (e.g., `{"overall_score": 85...}`) and displays it using the beautiful dashboard you see on your screen.
+
+---
+
+## 🛠️ Key Concepts for You to Learn
+1. **REST APIs**: How two separate programs (Java and React) talk to each other using HTTP.
+2. **JSON**: The format used for data exchange.
+3. **Asynchronous Programming**: Why the app doesn't "freeze" while waiting for the AI (using `async/await` in JS).
+4. **Environment Variables**: Keeping your `API_KEY` safe by not hardcoding it in the file.
