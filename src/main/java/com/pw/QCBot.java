@@ -74,17 +74,18 @@ public class QCBot {
                     logger.info("--- Received new audit request ---");
                     logger.info("Notes loaded! Sending to Gemini...");
 
-                    String prompt = "You are a strict content auditor for PW (Physics Wallah)." +
-                            " A teacher has submitted these notes. Audit everything -" +
-                            " check if concepts are correct, questions are good, answers are right," +
-                            " and language is clear for JEE/NEET students." +
-                            " Return ONLY valid JSON, no extra text, no backticks, in this format:" +
+                    String prompt = "You are a HIGHLY STRICT content auditor for PW (Physics Wallah)." +
+                            " Audit the following notes for JEE/NEET standards. " +
+                            " IMPORTANT: If the notes are gibberish, irrelevant, or non-educational, " +
+                            " set ALL scores to 0 and list 'Invalid/Nonsense Content' in top_fixes. " +
+                            " Otherwise, audit concepts, questions, and answers strictly. " +
+                            " Return ONLY valid JSON, no extra text, in this format: " +
                             " {\"overall_score\": 85," +
                             " \"concept_accuracy\": {\"score\": 90, \"issues\": [\"issue1\"]}," +
                             " \"question_quality\": {\"score\": 80, \"issues\": [\"issue1\"]}," +
                             " \"answer_correctness\": {\"score\": 85, \"issues\": [\"issue1\"]}," +
                             " \"top_fixes\": [\"fix1\", \"fix2\"]}" +
-                            " Here are the notes to audit: " + notes;
+                            " Notes: " + notes;
 
                     String response = callGemini(prompt);
                     logger.info("Gemini replied!");
@@ -126,7 +127,10 @@ public class QCBot {
                 + "\"parts\": [{"
                 + "\"text\": \"" + prompt.replace("\"", "\\\"").replace("\n", "\\n") + "\""
                 + "}]"
-                + "}]"
+                + "}],"
+                + "\"generationConfig\": {"
+                + "\"temperature\": 0.0"
+                + "}"
                 + "}";
 
         String url = "https://generativelanguage.googleapis.com/v1beta/models/"
