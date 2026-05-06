@@ -134,7 +134,7 @@ public class QCBot {
                 + "}";
 
         String url = "https://generativelanguage.googleapis.com/v1beta/models/"
-                + "gemini-2.5-flash-lite:generateContent?key=" + API_KEY;
+                + "gemini-1.5-flash:generateContent?key=" + API_KEY;
 
         Request request = new Request.Builder()
                 .url(url)
