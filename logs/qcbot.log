@@ -28,3 +28,55 @@ java.lang.Exception: Gemini API Error: {"code":503,"message":"This model is curr
 	at java.lang.Thread.run(Thread.java:1474) [?:?]
 2026-05-06 18:43:16.634 [com.pw.QCBot.main()] INFO  com.pw.QCBot - QC Bot API Server started on port 8080
 2026-05-06 18:43:16.649 [com.pw.QCBot.main()] INFO  com.pw.QCBot - Waiting for frontend requests...
+2026-05-06 19:16:57.117 [HTTP-Dispatcher] INFO  com.pw.QCBot - --- Received new audit request ---
+2026-05-06 19:16:57.120 [HTTP-Dispatcher] INFO  com.pw.QCBot - Notes loaded! Sending to Gemini...
+2026-05-06 19:16:58.033 [HTTP-Dispatcher] ERROR com.pw.QCBot - Error processing audit request
+java.lang.Exception: Gemini API Error: {"code":404,"message":"models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","status":"NOT_FOUND"}
+	at com.pw.QCBot.callGemini(QCBot.java:156) ~[classes/:?]
+	at com.pw.QCBot$AuditHandler.handle(QCBot.java:90) [classes/:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98) [jdk.httpserver:?]
+	at sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76) [jdk.httpserver:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:915) [jdk.httpserver:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:891) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:204) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:609) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:574) [jdk.httpserver:?]
+	at java.lang.Thread.run(Thread.java:1474) [?:?]
+2026-05-06 19:21:52.639 [com.pw.QCBot.main()] INFO  com.pw.QCBot - QC Bot API Server started on port 8080
+2026-05-06 19:21:52.647 [com.pw.QCBot.main()] INFO  com.pw.QCBot - Waiting for frontend requests...
+2026-05-06 19:22:32.544 [HTTP-Dispatcher] INFO  com.pw.QCBot - --- Received new audit request ---
+2026-05-06 19:22:32.546 [HTTP-Dispatcher] INFO  com.pw.QCBot - Notes loaded! Sending to Gemini...
+2026-05-06 19:22:33.648 [HTTP-Dispatcher] ERROR com.pw.QCBot - Error processing audit request
+java.lang.Exception: Gemini API Error: {"code":404,"message":"models/gemini-1.5-flash is not found for API version v1, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","status":"NOT_FOUND"}
+	at com.pw.QCBot.callGemini(QCBot.java:160) ~[classes/:?]
+	at com.pw.QCBot$AuditHandler.handle(QCBot.java:94) [classes/:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98) [jdk.httpserver:?]
+	at sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76) [jdk.httpserver:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:915) [jdk.httpserver:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:891) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:204) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:609) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:574) [jdk.httpserver:?]
+	at java.lang.Thread.run(Thread.java:1474) [?:?]
+2026-05-06 19:23:32.410 [com.pw.QCBot.main()] INFO  com.pw.QCBot - QC Bot API Server started on port 8080
+2026-05-06 19:23:32.419 [com.pw.QCBot.main()] INFO  com.pw.QCBot - Waiting for frontend requests...
+2026-05-06 19:23:35.661 [HTTP-Dispatcher] INFO  com.pw.QCBot - --- Received new audit request ---
+2026-05-06 19:23:35.663 [HTTP-Dispatcher] INFO  com.pw.QCBot - Notes loaded! Sending to Gemini...
+2026-05-06 19:23:36.572 [HTTP-Dispatcher] ERROR com.pw.QCBot - Error processing audit request
+java.lang.Exception: Gemini API Error: {"code":404,"message":"models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","status":"NOT_FOUND"}
+	at com.pw.QCBot.callGemini(QCBot.java:160) ~[classes/:?]
+	at com.pw.QCBot$AuditHandler.handle(QCBot.java:94) [classes/:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98) [jdk.httpserver:?]
+	at sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76) [jdk.httpserver:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:915) [jdk.httpserver:?]
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:891) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:204) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:609) [jdk.httpserver:?]
+	at sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:574) [jdk.httpserver:?]
+	at java.lang.Thread.run(Thread.java:1474) [?:?]

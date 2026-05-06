@@ -19,6 +19,10 @@ public class QCBot {
     private static final OkHttpClient client = new OkHttpClient();
 
     public static void main(String[] args) throws Exception {
+        if (args.length > 0 && args[0].equalsIgnoreCase("list")) {
+            listModels();
+            return;
+        }
         if (API_KEY == null || API_KEY.isEmpty()) {
             logger.error("FATAL ERROR: GEMINI_API_KEY environment variable is not set!");
             logger.error(
