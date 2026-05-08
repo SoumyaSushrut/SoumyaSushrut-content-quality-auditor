@@ -17,7 +17,7 @@ public class QCBot {
 
     private static final String API_KEY = System.getenv("GEMINI_API_KEY");
     private static final String GEMINI_MODEL = System.getenv("GEMINI_MODEL") != null ? 
-            System.getenv("GEMINI_MODEL") : "gemini-2.0-flash-lite-preview"; // Defaulting to the latest known lite model
+            System.getenv("GEMINI_MODEL") : "gemini-2.5-flash-lite"; // Defaulting to the latest requested lite model
     private static final OkHttpClient client = new OkHttpClient();
 
     public static void main(String[] args) throws Exception {
