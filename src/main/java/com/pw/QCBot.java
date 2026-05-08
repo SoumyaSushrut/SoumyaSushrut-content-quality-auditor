@@ -16,6 +16,8 @@ public class QCBot {
     private static final Logger logger = LogManager.getLogger(QCBot.class);
 
     private static final String API_KEY = System.getenv("GEMINI_API_KEY");
+    private static final String GEMINI_MODEL = System.getenv("GEMINI_MODEL") != null ? 
+            System.getenv("GEMINI_MODEL") : "gemini-2.0-flash-lite-preview"; // Defaulting to the latest known lite model
     private static final OkHttpClient client = new OkHttpClient();
 
     public static void main(String[] args) throws Exception {
@@ -138,7 +140,7 @@ public class QCBot {
                 + "}";
 
         String url = "https://generativelanguage.googleapis.com/v1beta/models/"
-                + "gemini-flash-latest:generateContent?key=" + API_KEY.trim();
+                + GEMINI_MODEL + ":generateContent?key=" + API_KEY.trim();
 
         int maxRetries = 3;
         int retryCount = 0;
